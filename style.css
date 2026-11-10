@@ -21,6 +21,8 @@ a {
 }
 /* =========header====================================== */
 .header {
+  position: relative; 
+  z-index: 9999999 !important;	
   background-color: #ffffff;
   padding: 0.5rem 0 0 0;
 }
