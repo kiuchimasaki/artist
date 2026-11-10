@@ -52,24 +52,22 @@
   /* --- メインコンテンツ全体の枠（透けさせる設定） --- */
   main.loading {
     opacity: 0.3; /* 読み込み中は5%だけ極薄で見える状態 */
-    backdrop-filter: blur(20px);
   }
   main {
     opacity: 1;
-    transition: opacity 3s ease; /* メイン全体の表示も滑らかに */
-    transition: backdrop-filter 15s ease;
-    background-color: rgba(255, 255, 255, 0);
-    backdrop-filter: blur(20);  
+    transition: opacity 5s ease; /* メイン全体の表示も滑らかに */
   }
 
   /* --- 写真1枚1枚がその場でふわっと現れるスタイル --- */
   .fade-in-item {
     opacity: 0;
+    filter: blur(5px);
     will-change: opacity; 
-    transition: opacity 3s ease; /* 1.5秒かけてじわっと浮かび上がらせる */
+    transition: filter 8s ease,opacity 3s ease; /* 1.5秒かけてじわっと浮かび上がらせる */
   }
   .fade-in-item.show {
     opacity: 1;
+    filter: blur(0);
   }
 </style>
 
