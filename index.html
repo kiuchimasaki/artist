@@ -52,11 +52,14 @@
 
   /* --- メインコンテンツのスタイル --- */
 main.loading {
-  opacity: 0;
+  opacity: 0.3;          /* 少し明るめに透けさせる */
+  filter: blur(8px);     /* 8ピクセルのボカシをかける */
 }
+
 main {
   opacity: 1;
-  transition: opacity 3.0s ease; 
+  filter: blur(0px);     /* 読み込み完了でボカシをゼロにする */
+  transition: opacity 3.0s ease, filter 3.0s ease; /* ボカシも3秒かけて滑らかに消す */
 }
 </style>
   
