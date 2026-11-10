@@ -27,7 +27,7 @@
     align-items: center !important;
     z-index: 999999 !important;
     opacity: 1;
-    transition: opacity 1.0s ease; /* 暗い画面が消える速度 */
+    transition: opacity 3.0s ease; /* 暗い画面が消える速度 */
   }
   .loader-overlay.loaded {
     opacity: 0 !important;
@@ -49,7 +49,7 @@
 
   /* --- メインコンテンツ全体の枠（透けさせる設定） --- */
   main.loading {
-    opacity: 0.3; /* 最初は全体をうっすら透けさせる */
+    opacity: 0.5; /* 最初は全体をうっすら透けさせる */
   }
   main {
     opacity: 1;
@@ -60,7 +60,7 @@
   .fade-in-item {
     opacity: 0;
     /* 位置移動（translate）を削除し、純粋に透明度だけでふわっとさせます */
-    transition: opacity 1.5s ease; /* 1.5秒かけてじわっと浮かび上がらせる */
+    transition: opacity 3s ease; /* 3秒かけてじわっと浮かび上がらせる */
   }
 
   /* JavaScriptでこのクラスがついたら画像を表示する */
