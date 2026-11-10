@@ -27,7 +27,7 @@
     align-items: center !important;
     z-index: 999999 !important;
     opacity: 1;
-    transition: opacity 3.0s ease; /* 暗い画面が消える速度 */
+    transition: opacity 1.0s ease; /* 暗い画面が消える速度 */
   }
   .loader-overlay.loaded {
     opacity: 0 !important;
@@ -49,21 +49,20 @@
 
   /* --- メインコンテンツ全体の枠（透けさせる設定） --- */
   main.loading {
-    opacity: 0.8; /* 最初は全体をうっすら透けさせる */
+    opacity: 0.3; /* 最初は全体をうっすら透けさせる */
   }
   main {
     opacity: 1;
-    transition: opacity 3.0s ease;
+    transition: opacity 1.0s ease;
   }
 
-  /* --- ★新設：画像一枚一枚がその場でふわっと現れるスタイル --- */
+  /* --- ★修正：写真1枚1枚がその場でふわっと現れるスタイル --- */
   .fade-in-item {
     opacity: 0;
-    /* 位置移動（translate）を削除し、純粋に透明度だけでふわっとさせます */
-    transition: opacity 7s ease; /* 3秒かけてじわっと浮かび上がらせる */
+    transition: opacity 1.5s ease; /* 1.5秒かけてじわっと浮かび上がらせる */
   }
 
-  /* JavaScriptでこのクラスがついたら画像を表示する */
+  /* JavaScriptでこのクラスがついたら写真を表示する */
   .fade-in-item.show {
     opacity: 1;
   }
@@ -351,15 +350,15 @@
   
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // 1. 全てのポップアップ要素を取得
-  const items = Array.from(document.querySelectorAll('.gallery-modal'));
+  // 1. ★変更：画面に見えている写真の枠（.gallery-item）をすべて取得
+  const items = Array.from(document.querySelectorAll('.gallery-item'));
   
-  // あらかじめ非表示用のクラス（fade-in-item）をつけておく
+  // あらかじめすべてを透明（非表示）にしておく
   items.forEach(item => {
     item.classList.add('fade-in-item');
   });
 
-  // 配列をランダムにシャッフルするアルゴリズム
+  // 配列をランダムにシャッフルする関数
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -368,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return array;
   }
 
-  // ローディングとランダム個別アニメーションを実行する関数
+  // ローディング消去とランダム個別フェードインを実行する関数
   function startAnimate() {
     // ローディング画面を消す
     const loader = document.getElementById('page-loader');
@@ -376,20 +375,20 @@ document.addEventListener('DOMContentLoaded', function() {
       loader.classList.add('loaded');
     }
 
-    // メイン枠の loading クラスを外す
+    // メイン枠の loading クラスを外して100%の濃さにする
     const mainContent = document.querySelector('main');
     if (mainContent) {
       mainContent.classList.remove('loading');
     }
 
-    // ★要素の順番をランダムにシャッフルする
+    // 写真の順番をバラバラにシャッフルする
     const shuffledItems = shuffle(items);
 
-    // シャッフルされた順番で、40ミリ秒（0.04秒）ずつの時間差でふわっと表示
+    // シャッフルされた順番で、30ミリ秒（0.03秒）ずつの時間差でふわっと表示
     shuffledItems.forEach((item, index) => {
       setTimeout(() => {
         item.classList.add('show');
-      }, index * 40); // ここの数値を大きくすると、1枚ずつがもっとバラバラとゆっくり現れます
+      }, index * 30); // 80枚が約2.4秒かけてバラバラと出現します
     });
   }
 
@@ -399,9 +398,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 対策②：万が一画像が重くても、2.5秒経ったら強制的にアニメーションを開始する（保険）
-  setTimeout(startAnimate, 4000);
+  setTimeout(startAnimate, 2500);
 });
 </script>
+
 
 
 
