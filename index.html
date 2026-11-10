@@ -393,9 +393,9 @@ document.addEventListener('DOMContentLoaded', function() {
       const shuffledItems = shuffle(items);
 
       // ★調整：何枚ずつ同時に出すか（ここでは「4枚」ずつ）
-      const batchSize = 8; 
+      const batchSize = 16; 
       // ★調整：次の束（グループ）を出すまでの時間差（ミリ秒）
-      const intervalTime = 200; 
+      const intervalTime = 150; 
 
       shuffledItems.forEach((item, index) => {
         // indexをbatchSizeで割ることで、4枚ごとに同じタイミングのグループを作ります
@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 対策②：万が一画像が重くても、2.5秒経ったら強制的に開始（保険）
-  setTimeout(startAnimate, 5000);
+  setTimeout(startAnimate, 3000);
 });
 </script>
 
