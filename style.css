@@ -30,7 +30,7 @@ a {
 body:not(.js-loaded) header,
 body:has(main.loading) header,
 .loader-overlay:not(.loaded) ~ header {
-  background-color: rgba(255, 255, 255, 0.2) !important;
+  background-color: rgba(210, 210, 210, 0.88)!important;
 }
 	
 .header .container {
