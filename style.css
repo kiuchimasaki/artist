@@ -25,13 +25,13 @@ a {
   z-index: 9999999 !important;	
   background-color: #ffffff;
   padding: 0.5rem 0 0 0;
-　transition: background-color 3s ease; 	
+　transition: background-color 5s ease; 	
 }
 body:not(.js-loaded) header,
 body:has(main.loading) header,
 .loader-overlay:not(.loaded) ~ header {
   background-color: rgba(210, 210, 210, 0.88)!important;
-opacity: 0.9;
+opacity: 0.85;
 }
 	
 .header .container {
