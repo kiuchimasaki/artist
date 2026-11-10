@@ -13,34 +13,52 @@
   <link rel="stylesheet" href="style.css">
 
 
-<!-- 追加：テスト用にHTMLの中に直接CSSを仕込む -->
-  <style>
-    .loader-overlay {
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100vw !important;
-      height: 100vh !important;
-      background-color: rgba(0, 0, 0, 0.7) !important; /* 目立つように70%の黒 */
-      display: flex !important;
-      justify-content: center !important;
-      align-items: center !important;
-      z-index: 999999 !important;
-      opacity: 1 !important; /* 強制表示 */
-    }
-    .spinner {
-      width: 50px !important;
-      height: 50px !important;
-      border: 5px solid rgba(255, 255, 255, 0.3) !important;
-      border-top-color: #fff !important;
-      border-radius: 50% !important;
-      animation: spin 1s linear infinite !important;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-  </style>
+<style>
+  /* --- ローディング画面全体のスタイル --- */
+  .loader-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background-color: rgba(0, 0, 0, 0.6) !important; /* ほどよい暗さ（60%） */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 999999 !important;
+    opacity: 1;
+    transition: opacity 0.5s ease; /* 消えるときのアニメーション */
+  }
 
+  /* 読み込み完了後にJSでこのクラスがつき、ローディング画面が消える */
+  .loader-overlay.loaded {
+    opacity: 0 !important;
+    pointer-events: none !important; /* クリックを透過させる */
+  }
+
+  /* --- ぐるぐる回るスピナーのスタイル --- */
+  .spinner {
+    width: 50px !important;
+    height: 50px !important;
+    border: 5px solid rgba(255, 255, 255, 0.3) !important;
+    border-top-color: #fff !important;
+    border-radius: 50% !important;
+    animation: spin 1s linear infinite !important;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* --- メインコンテンツのスタイル --- */
+  main.loading {
+    opacity: 0;
+  }
+  main {
+    opacity: 1;
+    transition: opacity 1.0s ease-in-out;
+  }
+</style>
   
 </head>
 <body>
@@ -322,11 +340,21 @@
  
   
 <script>
-// テストのために一時的に中身を空っぽにします（自動で消えないようにする）
 window.addEventListener('load', function() {
-  console.log('読み込みは完了しましたが、テストのためローディングは消しません');
+  // 1. ローディング画面（暗い背景とぐるぐる）に「loaded」クラスをつけて消す
+  const loader = document.getElementById('page-loader');
+  if (loader) {
+    loader.classList.add('loaded');
+  }
+
+  // 2. メインコンテンツから「loading」クラスを外して表示させる
+  const mainContent = document.querySelector('main');
+  if (mainContent) {
+    mainContent.classList.remove('loading');
+  }
 });
 </script>
+
 
 
 
