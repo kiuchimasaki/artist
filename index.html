@@ -58,7 +58,7 @@
     </div>
   </header>
 
-  <main class="main container">
+ <main class="main container loading">
     <!-- 主役の画像一覧セクション -->
     <section id="expedition" class="section">
       <div class="gallery-grid">
@@ -278,6 +278,15 @@
 
  
   
+<script>
+window.addEventListener('load', function() {
+  // mainタグから loading クラスを削除して表示させる
+  const mainContent = document.querySelector('main');
+  if (mainContent) {
+    mainContent.classList.remove('loading');
+  }
+});
+</script>
 
 
 </body>
