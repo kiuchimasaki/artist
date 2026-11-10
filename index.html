@@ -49,17 +49,17 @@
 
   /* --- メインコンテンツ全体の枠（透けさせる設定） --- */
   main.loading {
-    opacity: 0.6; /* 最初は全体をうっすら透けさせる */
+    opacity: 0.3; /* 最初は全体をうっすら透けさせる */
   }
   main {
     opacity: 1;
-    transition: opacity 5.0s ease;
+    transition: opacity 1.0s ease;
   }
 
   /* --- ★修正：写真1枚1枚がその場でふわっと現れるスタイル --- */
   .fade-in-item {
     opacity: 0;
-    transition: opacity 5s ease; /* 1.5秒かけてじわっと浮かび上がらせる */
+    transition: opacity 1.5s ease; /* 1.5秒かけてじわっと浮かび上がらせる */
   }
 
   /* JavaScriptでこのクラスがついたら写真を表示する */
@@ -67,6 +67,7 @@
     opacity: 1;
   }
 </style>
+
 
   
 </head>
