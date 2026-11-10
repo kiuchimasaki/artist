@@ -350,33 +350,59 @@
  
   
 <script>
-// ローディング画面を消す共通の関数
-function removeLoader() {
-  // 1. ローディング画面（暗い背景とぐるぐる）を消す
-  const loader = document.getElementById('page-loader');
-  if (loader && !loader.classList.contains('loaded')) {
-    loader.classList.add('loaded');
-  }
-
-  // 2. メインコンテンツから「loading」クラスを外して表示させる
-  const mainContent = document.querySelector('main');
-  if (mainContent) {
-    mainContent.classList.remove('loading');
-  }
-}
-
-// 対策①：通常通り、すべての画像が読み込まれたら消す
-window.addEventListener('load', function() {
-  removeLoader();
-});
-
-// 対策②：【超重要】画像が1枚壊れていても、HTML自体の準備ができたらすぐ消す（保険）
 document.addEventListener('DOMContentLoaded', function() {
-  // すでに読み込みが終わっている場合は何もしない
-  // もし1.5秒（1500ミリ秒）経っても画像が終わらなければ、強制的にギャラリーを表示する
-  setTimeout(removeLoader, 3500); 
+  // 1. 全てのポップアップ要素を取得
+  const items = Array.from(document.querySelectorAll('.gallery-modal'));
+  
+  // あらかじめ非表示用のクラス（fade-in-item）をつけておく
+  items.forEach(item => {
+    item.classList.add('fade-in-item');
+  });
+
+  // 配列をランダムにシャッフルするアルゴリズム
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  // ローディングとランダム個別アニメーションを実行する関数
+  function startAnimate() {
+    // ローディング画面を消す
+    const loader = document.getElementById('page-loader');
+    if (loader && !loader.classList.contains('loaded')) {
+      loader.classList.add('loaded');
+    }
+
+    // メイン枠の loading クラスを外す
+    const mainContent = document.querySelector('main');
+    if (mainContent) {
+      mainContent.classList.remove('loading');
+    }
+
+    // ★要素の順番をランダムにシャッフルする
+    const shuffledItems = shuffle(items);
+
+    // シャッフルされた順番で、40ミリ秒（0.04秒）ずつの時間差でふわっと表示
+    shuffledItems.forEach((item, index) => {
+      setTimeout(() => {
+        item.classList.add('show');
+      }, index * 40); // ここの数値を大きくすると、1枚ずつがもっとバラバラとゆっくり現れます
+    });
+  }
+
+  // 対策①：すべての画像が読み込まれたら開始
+  window.addEventListener('load', function() {
+    startAnimate();
+  });
+
+  // 対策②：万が一画像が重くても、2.5秒経ったら強制的にアニメーションを開始する（保険）
+  setTimeout(startAnimate, 2500);
 });
 </script>
+
 
 
 
