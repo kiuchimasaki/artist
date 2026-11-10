@@ -186,16 +186,54 @@ pointer-events: none;
 
 /* =====================main========================================= */
 
-/* 読み込み中の状態：メインコンテンツだけを非表示（透明）にする */
+/* --- ローディング画面全体のスタイル --- */
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 黒の50%透明度（うっすら暗く） */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* ヘッダーやコンテンツより常に手前に表示 */
+  opacity: 1;
+  transition: opacity 0.5s ease; /* 消えるときのアニメーション */
+}
+
+/* 読み込み完了後にJSでこのクラスをつけ、ローディング画面を消す */
+.loader-overlay.loaded {
+  opacity: 0;
+  pointer-events: none; /* クリックを透過させる */
+}
+
+/* --- ぐるぐる回るスピナーのスタイル --- */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3); /* 薄い円 */
+  border-top-color: #fff; /* 回る部分の色（白） */
+  border-radius: 50%;
+  animation: spin 1s linear infinite; /* 1秒で1回転を無限に繰り返す */
+}
+
+/* スピナーを回転させるアニメーションの動き */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- メインコンテンツのスタイル --- */
 main.loading {
   opacity: 0;
 }
-
-/* 読み込み完了後の状態：3秒かけてふわっと表示 */
 main {
   opacity: 1;
-  transition: opacity 3.0s ease-in-out;
+  transition: opacity 1.0s ease-in-out;
 }
+
 
 
 
