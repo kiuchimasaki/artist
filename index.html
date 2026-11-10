@@ -21,47 +21,54 @@
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    background-color: rgba(0, 0, 0, 0.7) !important; /*暗さ % */
+    background-color: rgba(0, 0, 0, 0.6) !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     z-index: 999999 !important;
-    opacity: 0.9;
-    transition: opacity 1.5s ease; /* 消えるときのアニメーション */
+    opacity: 1;
+    transition: opacity 1.0s ease; /* 暗い画面が消える速度 */
   }
-
-  /* 読み込み完了後にJSでこのクラスがつき、ローディング画面が消える */
   .loader-overlay.loaded {
     opacity: 0 !important;
-    pointer-events: none !important; /* クリックを透過させる */
+    pointer-events: none !important;
   }
 
-  /* --- ぐるぐる回るスピナーのスタイル --- */
+  /* --- ぐるぐる回るスピナー --- */
   .spinner {
     width: 50px !important;
     height: 50px !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border: 5px solid rgba(255, 255, 255, 0.3) !important;
     border-top-color: #fff !important;
     border-radius: 50% !important;
-    animation: spin 4s linear infinite !important;
+    animation: spin 1s linear infinite !important;
   }
-
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
 
-  /* --- メインコンテンツのスタイル --- */
-main.loading {
-  opacity: 0.4;          /* 少し明るめに透けさせる */
-  filter: blur(8px);     /* 8ピクセルのボカシをかける */
-}
+  /* --- メインコンテンツ全体の枠（透けさせる設定） --- */
+  main.loading {
+    opacity: 0.3; /* 最初は全体をうっすら透けさせる */
+  }
+  main {
+    opacity: 1;
+    transition: opacity 1.0s ease;
+  }
 
-main {
-  opacity: 1;
-  filter: blur(0px);     /* 読み込み完了でボカシをゼロにする */
-  transition: opacity 3.0s ease, filter 3.0s ease; /* ボカシも3秒かけて滑らかに消す */
-}
+  /* --- ★新設：画像一枚一枚がその場でふわっと現れるスタイル --- */
+  .fade-in-item {
+    opacity: 0;
+    /* 位置移動（translate）を削除し、純粋に透明度だけでふわっとさせます */
+    transition: opacity 1.5s ease; /* 1.5秒かけてじわっと浮かび上がらせる */
+  }
+
+  /* JavaScriptでこのクラスがついたら画像を表示する */
+  .fade-in-item.show {
+    opacity: 1;
+  }
 </style>
+
   
 </head>
 <body>
