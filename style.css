@@ -30,8 +30,7 @@ a {
 body:not(.js-loaded) header,
 body:has(main.loading) header,
 .loader-overlay:not(.loaded) ~ header {
-  background-color: rgba(210, 210, 210, 0.88)!important;
-opacity: 0.85;
+  background-color: rgba(210, 210, 210, 0.4)!important;
 }
 	
 .header .container {
@@ -44,7 +43,7 @@ opacity: 0.85;
 }
 .site-title a,
 .site-title.active a{
-	  font-family: "Roboto","sans-serif";
+  font-family:"Roboto","sans-serif";
   font-weight: 400; 
   }
 
