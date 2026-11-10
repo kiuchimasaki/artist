@@ -25,7 +25,19 @@ a {
   z-index: 9999999 !important;	
   background-color: #ffffff;
   padding: 0.5rem 0 0 0;
+　transition: background-color 3s ease; 	
 }
+main.loading ~ header,
+body:has(main.loading) header,
+.loader-overlay:not(.loaded) ~ header,
+header {
+
+}
+body:not(.js-loaded) header,
+.loader-overlay:not(.loaded) ~ header {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+	
 .header .container {
   display: flex;
   justify-content: space-between;
