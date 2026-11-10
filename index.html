@@ -401,9 +401,9 @@ document.addEventListener('DOMContentLoaded', function() {
       const shuffledItems = shuffle(items);
 
       // ★調整：何枚ずつ同時に出すか（ここでは「4枚」ずつ）
-      const batchSize = 8; 
+      const batchSize = 4; 
       // ★調整：次の束（グループ）を出すまでの時間差（ミリ秒）
-      const intervalTime = 200; 
+      const intervalTime = 100; 
 
       shuffledItems.forEach((item, index) => {
         // indexをbatchSizeで割ることで、4枚ごとに同じタイミングのグループを作ります
