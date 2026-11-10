@@ -185,6 +185,21 @@ pointer-events: none;
 }
 
 /* =====================main========================================= */
+
+/* 読み込み中の状態：メインコンテンツだけを非表示（透明）にする */
+main.loading {
+  opacity: 0;
+}
+
+/* 読み込み完了後の状態：1秒かけてふわっと表示 */
+main {
+  opacity: 1;
+  transition: opacity 1.0s ease-in-out;
+}
+
+
+
+
 .main {
   font-family: "Montserrat", "Roboto", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 1.1rem;
