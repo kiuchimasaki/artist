@@ -194,7 +194,7 @@ main.loading {
 /* 読み込み完了後の状態：1秒かけてふわっと表示 */
 main {
   opacity: 1;
-  transition: opacity 1.0s ease-in-out;
+  transition: opacity 3.0s ease-in-out;
 }
 
 
