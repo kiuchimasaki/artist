@@ -58,6 +58,12 @@
     </div>
   </header>
 
+
+<!-- 追加：ローディング画面------------------------->
+<div id="page-loader" class="loader-overlay">
+  <div class="spinner"></div>
+</div>
+  
  <main class="main container loading">
     <!-- 主役の画像一覧セクション -->
     <section id="expedition" class="section">
@@ -280,13 +286,20 @@
   
 <script>
 window.addEventListener('load', function() {
-  // mainタグから loading クラスを削除して表示させる
+  // 1. ローディング画面（うっすら暗い背景）を消す
+  const loader = document.getElementById('page-loader');
+  if (loader) {
+    loader.classList.add('loaded');
+  }
+
+  // 2. メインコンテンツを表示する
   const mainContent = document.querySelector('main');
   if (mainContent) {
     mainContent.classList.remove('loading');
   }
 });
 </script>
+
 
 
 </body>
