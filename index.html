@@ -60,6 +60,7 @@
   /* --- 写真1枚1枚がその場でふわっと現れるスタイル --- */
   .fade-in-item {
     opacity: 0;
+    will-change: opacity; 
     transition: opacity 2s ease; /* 1.5秒かけてじわっと浮かび上がらせる */
   }
   .fade-in-item.show {
