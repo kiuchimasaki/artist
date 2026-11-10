@@ -186,54 +186,6 @@ pointer-events: none;
 
 /* =====================main========================================= */
 
-/* --- ローディング画面全体のスタイル --- */
-.loader-overlay {
-  position: fixed !important; /* 強制適用 */
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important; /* 画面の横幅いっぱい */
-  height: 100vh !important; /* 画面の縦幅いっぱい */
-  background-color: rgba(0, 0, 0, 0.7) !important; /* 少し暗め（70%）にして分かりやすく */
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  z-index: 999999 !important; /* 他のどの要素よりも絶対手前に出す */
-  opacity: 1;
-  transition: opacity 0.5s ease;
-}
-
-/* 読み込み完了後にJSでこのクラスをつけ、ローディング画面を消す */
-.loader-overlay.loaded {
-  opacity: 0;
-  pointer-events: none; /* クリックを透過させる */
-}
-
-/* --- ぐるぐる回るスピナーのスタイル --- */
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(255, 255, 255, 0.3); /* 薄い円 */
-  border-top-color: #fff; /* 回る部分の色（白） */
-  border-radius: 50%;
-  animation: spin 1s linear infinite; /* 1秒で1回転を無限に繰り返す */
-}
-
-/* スピナーを回転させるアニメーションの動き */
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* --- メインコンテンツのスタイル --- */
-main.loading {
-  opacity: 0;
-}
-main {
-  opacity: 1;
-  transition: opacity 1.0s ease-in-out;
-}
-
 
 
 
