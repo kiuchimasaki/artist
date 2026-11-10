@@ -21,8 +21,8 @@
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    background-color: rgba(210, 210, 210, 0.4) !important;
-    
+    background-color: rgba(210, 210, 210, 0.7) !important;
+    backdrop-filter: blur(10px);
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -52,7 +52,7 @@
   /* --- メインコンテンツ全体の枠（透けさせる設定） --- */
   main.loading {
     opacity: 0.3; /* 読み込み中は5%だけ極薄で見える状態 */
-    backdrop-filter: blur(10px);
+    
   }
   main {
     opacity: 1;
