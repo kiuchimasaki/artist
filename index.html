@@ -285,20 +285,12 @@
  
   
 <script>
+// テストのために一時的に中身を空っぽにします（自動で消えないようにする）
 window.addEventListener('load', function() {
-  // 1. ローディング画面（うっすら暗い背景）を消す
-  const loader = document.getElementById('page-loader');
-  if (loader) {
-    loader.classList.add('loaded');
-  }
-
-  // 2. メインコンテンツを表示する
-  const mainContent = document.querySelector('main');
-  if (mainContent) {
-    mainContent.classList.remove('loading');
-  }
+  console.log('読み込みは完了しましたが、テストのためローディングは消しません');
 });
 </script>
+
 
 
 
