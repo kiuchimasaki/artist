@@ -397,9 +397,9 @@ document.addEventListener('DOMContentLoaded', function() {
       shuffledItems.forEach((item, index) => {
         setTimeout(() => {
           item.classList.add('show');
-        }, index * 40); // 40ミリ秒（0.04秒）ずつズラして出現
+        }, index * 30); // 40ミリ秒（0.04秒）ずつズラして出現
       });
-    }, 200); // ← ここで重なりのタイミングを調整（400ミリ秒 ＝ 0.4秒）
+    }, 100); // ← ここで重なりのタイミングを調整（400ミリ秒 ＝ 0.4秒）
   }
 
   // 対策①：すべての画像が読み込まれたら開始
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 対策②：万が一画像が重くても、2.5秒経ったら強制的に開始（保険）
-  setTimeout(startAnimate, 2500);
+  setTimeout(startAnimate, 5000);
 });
 </script>
 
