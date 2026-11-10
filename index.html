@@ -340,10 +340,11 @@
  
   
 <script>
-window.addEventListener('load', function() {
-  // 1. ローディング画面（暗い背景とぐるぐる）に「loaded」クラスをつけて消す
+// ローディング画面を消す共通の関数
+function removeLoader() {
+  // 1. ローディング画面（暗い背景とぐるぐる）を消す
   const loader = document.getElementById('page-loader');
-  if (loader) {
+  if (loader && !loader.classList.contains('loaded')) {
     loader.classList.add('loaded');
   }
 
@@ -352,8 +353,21 @@ window.addEventListener('load', function() {
   if (mainContent) {
     mainContent.classList.remove('loading');
   }
+}
+
+// 対策①：通常通り、すべての画像が読み込まれたら消す
+window.addEventListener('load', function() {
+  removeLoader();
+});
+
+// 対策②：【超重要】画像が1枚壊れていても、HTML自体の準備ができたらすぐ消す（保険）
+document.addEventListener('DOMContentLoaded', function() {
+  // すでに読み込みが終わっている場合は何もしない
+  // もし1.5秒（1500ミリ秒）経っても画像が終わらなければ、強制的にギャラリーを表示する
+  setTimeout(removeLoader, 1500); 
 });
 </script>
+
 
 
 
