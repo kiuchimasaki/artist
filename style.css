@@ -188,18 +188,18 @@ pointer-events: none;
 
 /* --- ローディング画面全体のスタイル --- */
 .loader-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* 黒の50%透明度（うっすら暗く） */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999; /* ヘッダーやコンテンツより常に手前に表示 */
+  position: fixed !important; /* 強制適用 */
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important; /* 画面の横幅いっぱい */
+  height: 100vh !important; /* 画面の縦幅いっぱい */
+  background-color: rgba(0, 0, 0, 0.7) !important; /* 少し暗め（70%）にして分かりやすく */
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 999999 !important; /* 他のどの要素よりも絶対手前に出す */
   opacity: 1;
-  transition: opacity 0.5s ease; /* 消えるときのアニメーション */
+  transition: opacity 0.5s ease;
 }
 
 /* 読み込み完了後にJSでこのクラスをつけ、ローディング画面を消す */
