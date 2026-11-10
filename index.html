@@ -61,9 +61,12 @@
   /* --- 写真1枚1枚がその場でふわっと現れるスタイル --- */
   .fade-in-item {
     opacity: 0;
+    will-change: opacity;
+    transition: opacity 3.5s ease; /* 1.5秒かけてじわっと浮かび上がらせる */
     filter: blur(5px);
-    will-change: opacity; 
-    transition: filter 8s ease,opacity 3s ease; /* 1.5秒かけてじわっと浮かび上がらせる */
+    will-change: filter; 
+    transition: filter 8s ease;
+    
   }
   .fade-in-item.show {
     opacity: 1;
