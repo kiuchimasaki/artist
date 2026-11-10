@@ -27,21 +27,22 @@
     align-items: center !important;
     z-index: 999999 !important;
     opacity: 1;
-    transition: opacity 1.0s ease; /* 暗い画面が消える速度 */
+    /* ↓ 消えるときの余韻を美しくするため 1.5秒（1.5s）に伸ばしました */
+    transition: opacity 1.5s ease; 
   }
   .loader-overlay.loaded {
     opacity: 0 !important;
     pointer-events: none !important;
   }
 
-  /* --- ぐるぐる回るスピナー --- */
+  /* --- ぐるぐる回るスピナー（極細版） --- */
   .spinner {
-    width: 80px !important;
-    height: 80px !important;
+    width: 50px !important;
+    height: 50px !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
     border-top-color: #fff !important;
     border-radius: 50% !important;
-    animation: spin 1.5s linear infinite !important;
+    animation: spin 1s linear infinite !important;
   }
   @keyframes spin {
     to { transform: rotate(360deg); }
@@ -49,24 +50,23 @@
 
   /* --- メインコンテンツ全体の枠（透けさせる設定） --- */
   main.loading {
-    opacity: 0.1; /* 最初は全体をうっすら透けさせる */
+    opacity: 0.05; /* 読み込み中は5%だけ極薄で見える状態 */
   }
   main {
     opacity: 1;
-    transition: opacity 1.0s ease;
+    transition: opacity 1.5s ease; /* メイン全体の表示も滑らかに */
   }
 
-  /* --- ★修正：写真1枚1枚がその場でふわっと現れるスタイル --- */
+  /* --- 写真1枚1枚がその場でふわっと現れるスタイル --- */
   .fade-in-item {
     opacity: 0;
     transition: opacity 1.5s ease; /* 1.5秒かけてじわっと浮かび上がらせる */
   }
-
-  /* JavaScriptでこのクラスがついたら写真を表示する */
   .fade-in-item.show {
     opacity: 1;
   }
 </style>
+
 
 
   
@@ -368,8 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
     return array;
   }
 
-  // アニメーションをコントロールする関数
-  let isAnimated = false; // 二重実行防止のフラグ
+  let isAnimated = false; // 二重実行防止
   
   function startAnimate() {
     if (isAnimated) return;
@@ -381,15 +380,15 @@ document.addEventListener('DOMContentLoaded', function() {
       loader.classList.add('loaded');
     }
 
-    // メイン枠の loading クラスを外して、ベースの30%の透け感を100%（通常状態）へ戻し始める
+    // メイン枠の loading クラスを外して、通常状態へ戻し始める
     const mainContent = document.querySelector('main');
     if (mainContent) {
       mainContent.classList.remove('loading');
     }
 
-    // ② 【ここが超重要】
-    // ローディング画面がCSSで消える時間（CSSに書いた transition: opacity 1.0s の「1秒間」）を
-    // しっかり待ってから、写真のランダムふわっとを「0」からスタートさせる。
+    // ② 【重ねるための時間調整】
+    // ローディング画面がうっすら消えかけている途中（0.4秒後）に、
+    // 写真のランダム出現を重ねてスタートさせます。
     setTimeout(() => {
       // 写真の順番をバラバラにシャッフルする
       const shuffledItems = shuffle(items);
@@ -400,7 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
           item.classList.add('show');
         }, index * 40); // 40ミリ秒（0.04秒）ずつズラして出現
       });
-    }, 1000); // ← ローディング画面が完全に消えるまでの待ち時間（1000ミリ秒 ＝ 1秒）
+    }, 400); // ← ここで重なりのタイミングを調整（400ミリ秒 ＝ 0.4秒）
   }
 
   // 対策①：すべての画像が読み込まれたら開始
@@ -412,6 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(startAnimate, 2500);
 });
 </script>
+
 
 
 
