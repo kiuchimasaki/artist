@@ -374,32 +374,37 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isAnimated) return;
     isAnimated = true;
 
-    // ① まずはローディング画面（暗い背景）を消し始める
+    // ① ローディング画面（暗い背景）を消し始める
     const loader = document.getElementById('page-loader');
     if (loader && !loader.classList.contains('loaded')) {
       loader.classList.add('loaded');
     }
 
-    // メイン枠の loading クラスを外して、通常状態へ戻し始める
+    // メイン枠の loading クラスを外す
     const mainContent = document.querySelector('main');
     if (mainContent) {
       mainContent.classList.remove('loading');
     }
 
-    // ② 【重ねるための時間調整】
-    // ローディング画面がうっすら消えかけている途中（0.4秒後）に、
-    // 写真のランダム出現を重ねてスタートさせます。
+    // ② ローディングが消えかけている途中（0.4秒後）に、写真の出現をスタート
     setTimeout(() => {
       // 写真の順番をバラバラにシャッフルする
       const shuffledItems = shuffle(items);
 
-      // シャッフルされた順番で、1枚ずつ時間差でふわっと表示
+      // ★調整：何枚ずつ同時に出すか（ここでは「4枚」ずつ）
+      const batchSize = 4; 
+      // ★調整：次の束（グループ）を出すまでの時間差（ミリ秒）
+      const intervalTime = 120; 
+
       shuffledItems.forEach((item, index) => {
+        // indexをbatchSizeで割ることで、4枚ごとに同じタイミングのグループを作ります
+        const groupIndex = Math.floor(index / batchSize);
+        
         setTimeout(() => {
           item.classList.add('show');
-        }, index * 20); // 40ミリ秒（0.04秒）ずつズラして出現
+        }, groupIndex * intervalTime); 
       });
-    }, 200); // ← ここで重なりのタイミングを調整（400ミリ秒 ＝ 0.4秒）
+    }, 400); 
   }
 
   // 対策①：すべての画像が読み込まれたら開始
@@ -408,9 +413,11 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 対策②：万が一画像が重くても、2.5秒経ったら強制的に開始（保険）
-  setTimeout(startAnimate, 3000);
+  setTimeout(startAnimate, 2500);
 });
 </script>
+
+
 
 
 
