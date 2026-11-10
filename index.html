@@ -351,10 +351,10 @@
   
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // 1. ★変更：画面に見えている写真の枠（.gallery-item）をすべて取得
+  // 1. 画面に見えている写真の枠（.gallery-item）をすべて取得
   const items = Array.from(document.querySelectorAll('.gallery-item'));
   
-  // あらかじめすべてを透明（非表示）にしておく
+  // あらかじめすべてを透明にしておく
   items.forEach(item => {
     item.classList.add('fade-in-item');
   });
@@ -368,29 +368,39 @@ document.addEventListener('DOMContentLoaded', function() {
     return array;
   }
 
-  // ローディング消去とランダム個別フェードインを実行する関数
+  // アニメーションをコントロールする関数
+  let isAnimated = false; // 二重実行防止のフラグ
+  
   function startAnimate() {
-    // ローディング画面を消す
+    if (isAnimated) return;
+    isAnimated = true;
+
+    // ① まずはローディング画面（暗い背景）を消し始める
     const loader = document.getElementById('page-loader');
     if (loader && !loader.classList.contains('loaded')) {
       loader.classList.add('loaded');
     }
 
-    // メイン枠の loading クラスを外して100%の濃さにする
+    // メイン枠の loading クラスを外して、ベースの30%の透け感を100%（通常状態）へ戻し始める
     const mainContent = document.querySelector('main');
     if (mainContent) {
       mainContent.classList.remove('loading');
     }
 
-    // 写真の順番をバラバラにシャッフルする
-    const shuffledItems = shuffle(items);
+    // ② 【ここが超重要】
+    // ローディング画面がCSSで消える時間（CSSに書いた transition: opacity 1.0s の「1秒間」）を
+    // しっかり待ってから、写真のランダムふわっとを「0」からスタートさせる。
+    setTimeout(() => {
+      // 写真の順番をバラバラにシャッフルする
+      const shuffledItems = shuffle(items);
 
-    // シャッフルされた順番で、30ミリ秒（0.03秒）ずつの時間差でふわっと表示
-    shuffledItems.forEach((item, index) => {
-      setTimeout(() => {
-        item.classList.add('show');
-      }, index * 30); // 80枚が約2.4秒かけてバラバラと出現します
-    });
+      // シャッフルされた順番で、1枚ずつ時間差でふわっと表示
+      shuffledItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.classList.add('show');
+        }, index * 40); // 40ミリ秒（0.04秒）ずつズラして出現
+      });
+    }, 1000); // ← ローディング画面が完全に消えるまでの待ち時間（1000ミリ秒 ＝ 1秒）
   }
 
   // 対策①：すべての画像が読み込まれたら開始
@@ -398,10 +408,11 @@ document.addEventListener('DOMContentLoaded', function() {
     startAnimate();
   });
 
-  // 対策②：万が一画像が重くても、2.5秒経ったら強制的にアニメーションを開始する（保険）
+  // 対策②：万が一画像が重くても、2.5秒経ったら強制的に開始（保険）
   setTimeout(startAnimate, 2500);
 });
 </script>
+
 
 
 
