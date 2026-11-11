@@ -361,71 +361,88 @@
  
   
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const images = document.querySelectorAll('.gallery-item img');
-  const mainContent = document.querySelector('main');
-  const loader = document.getElementById('page-loader');
+(function() {
+  // アニメーションを一瞬で完全スキップする関数
+  function skipLoading() {
+    const loader = document.getElementById('page-loader');
+    const mainContent = document.querySelector('main');
+    const images = document.querySelectorAll('.gallery-item img');
 
-  // 1. 今すでに何枚の画像が読み込み完了（キャッシュ）しているか数える
-  let loadedCount = 0;
-  images.forEach(img => {
-    if (img.complete) {
-      loadedCount++;
-      img.classList.add('img-loaded'); // すでに終わっているものは即表示
-    } else {
-      img.addEventListener('load', function() {
-        img.classList.add('img-loaded');
-      });
-    }
-  });
-
-  // 2. ★超重要：すべての画像（または大半の画像）がすでに読み込まれているか判定
-  // 80枚中、例えば「70枚以上」がキャッシュにあれば、他のページから戻ってきたと判断します
-  if (loadedCount >= 70) {
-    // ローディング関連のクラスや要素を、一瞬（アニメーションなし）で完全に消し去る
     if (loader) {
-      loader.style.display = 'none'; // 表示自体をパッと消す
+      loader.style.setProperty('display', 'none', 'important'); // スピナーをパッと消す
       loader.classList.add('loaded');
     }
     if (mainContent) {
-      mainContent.classList.remove('loading'); // ボカシも最初から無しにする
+      mainContent.classList.remove('loading'); // ボカシをパッと消す
+      mainContent.style.filter = 'none';
     }
-    return; // ここで処理を終了し、下のタイマーやスピナー待ちを実行させない
+    images.forEach(img => {
+      img.classList.add('img-loaded'); // 画像をすべて100%表示
+    });
   }
 
-  // 3. 【初回アクセス時やキャッシュがない時だけ】これまでの美しいローディングを実行
-  if (mainContent) {
-    mainContent.classList.add('loading'); // 通常時はボカシをつける
-  }
-
-  let isAnimated = false;
-
-  function startAnimate() {
-    if (isAnimated) return;
-    isAnimated = true;
-
-    // スピナーと白背景を消し始める
-    if (loader && !loader.classList.contains('loaded')) {
-      loader.classList.add('loaded');
+  // 1. 【超重要】ブラウザの「戻る」ボタンでの読み込み（bfcache）を検知して強制スキップ
+  window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+      skipLoading();
     }
-
-    // 1.5秒待ってからボカシをじわ〜っと解除
-    setTimeout(() => {
-      if (mainContent) {
-        mainContent.classList.remove('loading');
-      }
-    }, 1500);
-  }
-
-  // 通常時は最低「800ミリ秒」スピナーを回す
-  window.addEventListener('load', function() {
-    setTimeout(startAnimate, 800); 
   });
 
-  // 保険の強制開始タイマー
-  setTimeout(startAnimate, 2500);
-});
+  document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('.gallery-item img');
+    const mainContent = document.querySelector('main');
+    const loader = document.getElementById('page-loader');
+
+    // 2. 通常の画像読み込み監視 & キャッシュカウント
+    let loadedCount = 0;
+    images.forEach(img => {
+      if (img.complete) {
+        loadedCount++;
+        img.classList.add('img-loaded');
+      } else {
+        img.addEventListener('load', function() {
+          img.classList.add('img-loaded');
+        });
+      }
+    });
+
+    // 3. 【リンク移動での再訪問時】キャッシュが一定数以上（半分以上）あれば即スキップ
+    // 判定枚数を「40枚」に下げることで、リンク移動時も確実に検知させます
+    if (loadedCount >= 40) {
+      skipLoading();
+      return;
+    }
+
+    // 4. 【初回アクセス時（キャッシュがない時）だけ】美しいローディングを実行
+    if (mainContent) {
+      mainContent.classList.add('loading');
+    }
+
+    let isAnimated = false;
+    function startAnimate() {
+      if (isAnimated) return;
+      isAnimated = true;
+
+      if (loader && !loader.classList.contains('loaded')) {
+        loader.classList.add('loaded');
+      }
+
+      setTimeout(() => {
+        if (mainContent) {
+          mainContent.classList.remove('loading');
+        }
+      }, 1500);
+    }
+
+    window.addEventListener('load', function() {
+      setTimeout(startAnimate, 800); 
+    });
+
+    setTimeout(startAnimate, 2500);
+  });
+})();
 </script>
+
 
 
 
