@@ -21,9 +21,9 @@
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    background-color:rgba(255, 255, 255, 0.6) !important; 
+    background-color: rgba(255, 255, 255, 0.6) !important; 
     backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important; 
+    -webkit-backdrop-filter: blur(8px) !important; 
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -38,17 +38,12 @@
     pointer-events: none !important;
   }
 
-  /* --- ★修正：モノクロ極細スピナーのスタイル --- */
+  /* --- モノクロ極細スピナーのスタイル --- */
   .spinner {
     width: 50px !important;
     height: 50px !important;
-    /* 
-      ベースの円を極薄のグレー（黒の5%の濃さ）にし、
-      回転する先端部分だけを濃いグレー（黒の60%の濃さ）のモノクロにします
-    */
     border: 1px solid rgba(0, 0, 0, 0.05) !important; 
     border-top-color: rgba(0, 0, 0, 0.4) !important; 
-    
     border-radius: 50% !important;
     animation: spin 1s linear infinite !important;
   }
@@ -56,23 +51,23 @@
     to { transform: rotate(360deg); }
   }
 
-  /* --- ★新設：メインコンテンツ（画像一覧）の初期状態とボカシ効果 --- */
+  /* --- ★修正：メインコンテンツ（画像一覧）の初期状態とボカシ効果 --- */
   main.loading {
-    /* 
-    filter: blur(2px); 
+    filter: blur(2px); /* 構文の崩れを修正しました */
   }
   
   main {
     filter: blur(0px); /* 読み込み完了後にクッキリさせる */
     will-change: filter; /* アニメーションを滑らかにするためのブラウザへの通知 */
-    transition: filter 3s ease; /* 1.5秒かけてじわ〜っとボカシを消していく */
+    /* ↓【変更】3s から 5s に伸ばし、よりゆっくりボカシが消えるようにしました */
+    transition: filter 5s ease; 
   }
 
   /* --- 画像一枚一枚の初期状態（最初は透明） --- */
   .gallery-item img {
     opacity: 0;
     will-change: opacity;
-    transition: opacity 3s ease; /* 1枚1枚が1.5秒かけてじわっと出る */
+    transition: opacity 3s ease; 
   }
 
   /* 画像の読み込みが完了した瞬間に付与されるクラス */
@@ -380,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 2. メイン全体にあらかじめ loading（ボカシ用）クラスをつけておく
+  // 2. メイン全体にあらかじめ loading クラスをつけておく
   const mainContent = document.querySelector('main');
   if (mainContent) {
     mainContent.classList.add('loading');
@@ -393,19 +388,23 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isAnimated) return;
     isAnimated = true;
 
-    // ローディング画面（モノクロスピナーと白背景）を消し始める
+    // ローディング画面（スピナーと白背景）を消し始める
     const loader = document.getElementById('page-loader');
     if (loader && !loader.classList.contains('loaded')) {
       loader.classList.add('loaded');
     }
 
-    // メイン枠の loading クラスを外し、ボカシをじわ〜っと解除し始める
-    if (mainContent) {
-      mainContent.classList.remove('loading');
-    }
+    // ★改善ポイント：
+    // スピナーが消え始めてから「1.5秒（1500ミリ秒）」だけじっくり待ってから、
+    // 画像全体のボカシをじわ〜っと解除し始めます（重なりの余韻が綺麗になります）
+    setTimeout(() => {
+      if (mainContent) {
+        mainContent.classList.remove('loading');
+      }
+    }, 1500); // ←ここの数字でお好みの「待ち時間」に調整できます
   }
 
-  // 最低「800ミリ秒（0.8秒）」はモノクロスピナーを回し、そこから重ねてフェードアウト
+  // 最低「800ミリ秒」はモノクロスピナーを回す
   window.addEventListener('load', function() {
     setTimeout(startAnimate, 800); 
   });
@@ -414,6 +413,7 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(startAnimate, 2500);
 });
 </script>
+
 
 
 
