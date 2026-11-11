@@ -376,9 +376,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isAnimated) return;
     isAnimated = true;
 
-       // ★重要：この1行があることで、上記のCSSが「通常時の白」に切り替わります
-    document.body.classList.add('js-loaded'); 
-
     // ① ローディング画面（暗い背景）を消し始める
     const loader = document.getElementById('page-loader');
     if (loader && !loader.classList.contains('loaded')) {
