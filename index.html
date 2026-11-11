@@ -363,11 +363,15 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const images = document.querySelectorAll('.gallery-item img');
-  
-  // 1. 各画像の読み込み完了を監視
+  const mainContent = document.querySelector('main');
+  const loader = document.getElementById('page-loader');
+
+  // 1. 今すでに何枚の画像が読み込み完了（キャッシュ）しているか数える
+  let loadedCount = 0;
   images.forEach(img => {
     if (img.complete) {
-      img.classList.add('img-loaded');
+      loadedCount++;
+      img.classList.add('img-loaded'); // すでに終わっているものは即表示
     } else {
       img.addEventListener('load', function() {
         img.classList.add('img-loaded');
@@ -375,44 +379,54 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // 2. メイン全体にあらかじめ loading クラスをつけておく
-  const mainContent = document.querySelector('main');
-  if (mainContent) {
-    mainContent.classList.add('loading');
+  // 2. ★超重要：すべての画像（または大半の画像）がすでに読み込まれているか判定
+  // 80枚中、例えば「70枚以上」がキャッシュにあれば、他のページから戻ってきたと判断します
+  if (loadedCount >= 70) {
+    // ローディング関連のクラスや要素を、一瞬（アニメーションなし）で完全に消し去る
+    if (loader) {
+      loader.style.display = 'none'; // 表示自体をパッと消す
+      loader.classList.add('loaded');
+    }
+    if (mainContent) {
+      mainContent.classList.remove('loading'); // ボカシも最初から無しにする
+    }
+    return; // ここで処理を終了し、下のタイマーやスピナー待ちを実行させない
   }
 
-  // 3. ローディング演出のコントロール
+  // 3. 【初回アクセス時やキャッシュがない時だけ】これまでの美しいローディングを実行
+  if (mainContent) {
+    mainContent.classList.add('loading'); // 通常時はボカシをつける
+  }
+
   let isAnimated = false;
 
   function startAnimate() {
     if (isAnimated) return;
     isAnimated = true;
 
-    // ローディング画面（スピナーと白背景）を消し始める
-    const loader = document.getElementById('page-loader');
+    // スピナーと白背景を消し始める
     if (loader && !loader.classList.contains('loaded')) {
       loader.classList.add('loaded');
     }
 
-    // ★改善ポイント：
-    // スピナーが消え始めてから「1.5秒（1500ミリ秒）」だけじっくり待ってから、
-    // 画像全体のボカシをじわ〜っと解除し始めます（重なりの余韻が綺麗になります）
+    // 1.5秒待ってからボカシをじわ〜っと解除
     setTimeout(() => {
       if (mainContent) {
         mainContent.classList.remove('loading');
       }
-    }, 1500); // ←ここの数字でお好みの「待ち時間」に調整できます
+    }, 1500);
   }
 
-  // 最低「800ミリ秒」はモノクロスピナーを回す
+  // 通常時は最低「800ミリ秒」スピナーを回す
   window.addEventListener('load', function() {
     setTimeout(startAnimate, 800); 
   });
 
-  // 保険：万が一画像が重くても、2.5秒経ったら強制的に開始
+  // 保険の強制開始タイマー
   setTimeout(startAnimate, 2500);
 });
 </script>
+
 
 
 
