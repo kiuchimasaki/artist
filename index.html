@@ -21,7 +21,9 @@
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    background-color: #ffffff !important; /* ★バックを完全な「無地の白」にする */
+    background-color:rgba(255, 255, 255, 0.85) !important; /* ★バックを完全な「無地の白」にする */
+    backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important; 
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -60,7 +62,7 @@
       読み込み中は白背景（.loader-overlay）の後ろに完全に隠れますが、
       ブラウザにあらかじめボカシ（20px）の準備をさせておきます
     */
-    filter: blur(20px); 
+    filter: blur(2px); 
   }
   
   main {
