@@ -21,7 +21,7 @@
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    background-color: rgba(210, 210, 210, 0.88) !important; /* 白ベースの透明 */
+    background-color: rgba(210, 210, 210, 0.6) !important; 
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -51,7 +51,7 @@
   .gallery-item img {
     opacity: 0;
     will-change: opacity;
-    transition: opacity 1.5s ease; /* 1枚1枚が1.5秒かけてじわっと出る */
+    transition: opacity 3.5s ease; /* 1枚1枚が1.5秒かけてじわっと出る */
   }
 
   /* 画像の読み込みが完了した瞬間に付与されるクラス */
@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 画像がどんなに一瞬で読み込まれても、最低「800ミリ秒（0.8秒）」はスピナーをしっかり回す
   window.addEventListener('load', function() {
-    setTimeout(startAnimate, 800); // ←ここの数字（ミリ秒）でスピナーの最低表示時間を調整できます
+    setTimeout(startAnimate, 1800); // ←ここの数字（ミリ秒）でスピナーの最低表示時間を調整できます
   });
 
   // 保険：万が一画像が重くても、2.5秒経ったら強制的に開始
