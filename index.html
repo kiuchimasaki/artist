@@ -47,23 +47,10 @@
     to { transform: rotate(360deg); }
   }
 
-  /* --- 通常時のヘッダー（無地の白） --- */
-  header {
-    position: relative; 
-    z-index: 9999999 !important; /* 常にローディング画面より手前に出す */
-    background-color: #ffffff; 
-    transition: background-color 1.5s ease; 
-  }
-
-  /* --- 読み込み中だけヘッダーの背景をローディングと同化させる --- */
-  body:not(.js-loaded) header {
-    background-color: rgba(255, 255, 255, 0.2) !important;
-  }
-
-  /* --- ★重要：画像一枚一枚の初期状態（最初は透明にする） --- */
+  /* --- 画像一枚一枚の初期状態（最初は透明） --- */
   .gallery-item img {
     opacity: 0;
-    will-change: opacity; /* ブラウザのアニメーション準備期間を強制維持 */
+    will-change: opacity;
     transition: opacity 1.5s ease; /* 1枚1枚が1.5秒かけてじわっと出る */
   }
 
@@ -72,6 +59,7 @@
     opacity: 1;
   }
 </style>
+
 
 
 
@@ -359,7 +347,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const images = document.querySelectorAll('.gallery-item img');
   
-  // 1. 各画像の読み込み完了を監視（クラスの付与だけを行う）
+  // 1. 各画像の読み込み完了を監視（完了したものから順次フェードインクラスを付与）
   images.forEach(img => {
     if (img.complete) {
       img.classList.add('img-loaded');
@@ -377,27 +365,23 @@ document.addEventListener('DOMContentLoaded', function() {
     if (isAnimated) return;
     isAnimated = true;
 
-    // ① まずはローディング画面（スピナーと白背景）を消し始める
+    // ローディング画面（スピナーと白背景）を消し始める
     const loader = document.getElementById('page-loader');
     if (loader && !loader.classList.contains('loaded')) {
       loader.classList.add('loaded');
     }
-
-    // ② ヘッダーを白に戻し始める
-    document.body.classList.add('js-loaded');
   }
 
-  // ★改善ポイント：
-  // 画像がどんなに一瞬で読み込まれても、最低「800ミリ秒（0.8秒）」はスピナーをしっかり回します。
-  // 800ミリ秒経ったあとにローディング画面が消え始め、同時に写真がじわっと浮かび上がります。
+  // 画像がどんなに一瞬で読み込まれても、最低「800ミリ秒（0.8秒）」はスピナーをしっかり回す
   window.addEventListener('load', function() {
-    setTimeout(startAnimate, 1800); // ←ここの数字（ミリ秒）でスピナーの最低表示時間を調整できます
+    setTimeout(startAnimate, 800); // ←ここの数字（ミリ秒）でスピナーの最低表示時間を調整できます
   });
 
   // 保険：万が一画像が重くても、2.5秒経ったら強制的に開始
   setTimeout(startAnimate, 2500);
 });
 </script>
+
 
 
 
