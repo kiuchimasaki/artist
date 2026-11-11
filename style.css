@@ -21,9 +21,6 @@ body {
   line-height: 1.8;
   color: #272727;
   background-color: #ffffff;
-  animation: 
-    opacityFade 0.7s ease-out forwards,
-    blurFade 0.4s ease-in-out forwards !important;
 }
 .container {
   width: 100%;
@@ -215,6 +212,10 @@ pointer-events: none;
   letter-spacing: 0.05em;
   color: #000000;
   padding: 2rem 0 0 0; 
+  animation: 
+    opacityFade 0.7s ease-out forwards,
+    blurFade 0.4s ease-in-out forwards !important;
+
 }
 
 .section {
