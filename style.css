@@ -61,15 +61,13 @@ a {
   display: inline-block; 
   text-decoration: none;  
 
-  /* --- 💡 追加：文字のズレ・ブレを一瞬でも発生させないための対策 --- */
-  -webkit-font-smoothing: antialiased; /* 文字の輪郭を常に滑らかにし、色の変化による太さの錯覚を防ぐ */
-  -moz-osx-font-smoothing: grayscale;   /* Mac環境での文字のチラつき防止 */
-  transform: translateZ(0);            /* GPU（グラフィックボード）で文字を描画させ、配置を固定する */
-  transition: color 0.2s ease;         /* ページ読み込み時の色の切り替えをほんの少し滑らかにして、ガタつきを隠す */
+  -webkit-font-smoothing: antialiased; 
+  -moz-osx-font-smoothing: grayscale;   /* Mac */
+  transform: translateZ(0);        
+  transition: color 0.2s ease;        
 }
 
 /* ----------active------------*/
-/* 💡 優先度をさらに上げ、一瞬でも他のスタイルが混ざらないように !important を追加 */
 .site-title.active a {
   color: #1d1d1d !important;          
   cursor: default !important;         
@@ -88,6 +86,7 @@ a {
   padding:1rem 1rem 0.3rem 0; 
   color: #808080;
   font-size: 0.95rem;
+  font-weight: 200;
   letter-spacing: 0.05em;
 }
 .nav a:hover {
@@ -148,6 +147,15 @@ a {
 .dropdown-menu .dropdown-item.non {
 pointer-events: none;   
 }
+/* -------active-------*/
+.dropdown-menu li a.active{
+  color:#808080;          
+  cursor: default;         
+  pointer-events: none;    
+} 
+
+
+
 /* ------dropdown-trigger"works"------------ */
 .dropdown-trigger .text {
   transition: opacity 2s ease !important; 
@@ -167,7 +175,7 @@ pointer-events: none;
 }
 /* --------dropdownbox----------- */
 .dropdown-menu {
-  margin-top: 18px; 
+  margin-top: 25px; 
 }
 .dropdown-menu::before {
   content: "";
@@ -191,8 +199,8 @@ pointer-events: none;
   display: inline-block;
   width: 0.7em;
   height: 0.7em;
-  border-top: 0.2em solid #858585;
-  border-right: 0.2em solid #858585;
+  border-top: 0.1em solid #858585;
+  border-right: 0.1em solid #858585;
   transform: rotate(135deg); 
   margin-top: 0.5em;
   margin-left: 0.5em;
@@ -245,13 +253,15 @@ font-family: "Roboto";
 }
 .works-title {
   font-family: "Roboto";	
-  font-weight: 400; 
+  font-weight: 200; 
   padding: 0 2rem;
-  color: #1d1d1d;   
+    color:#545353!important; 
 }
 #works-title{
+  font-weight: 200;
   font-size: 1rem;
   line-height: 1.8;
+
 }
 #works-date{
   font-size: 0.8rem;
@@ -386,7 +396,7 @@ font-family: "Roboto";
   opacity: 1;
   visibility: visible;
 }
-/* ポップアップの外側の虚空（背景）をクリックしたときに閉じるためのエリア */
+/* ---modal-close-bg -- */
 .modal-close-bg {
   position: absolute;
   top: 0;
@@ -395,7 +405,7 @@ font-family: "Roboto";
   height: 100%;
   cursor: default; 
 }
-/* 中央に表示されるオリジナル画像が入る箱 */
+/* ---modal-content --- */
 .modal-content {
   position: relative;
   max-width: 90%;
@@ -404,11 +414,11 @@ font-family: "Roboto";
   transform: scale(0.95);
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
-/* モーダルが開いた時、画像も少し滑らかにズームして定位置にくる演出 */
+/* ------modal-content open----------  */
 .gallery-modal:target .modal-content {
   transform: scale(1);
 }
-/* オリジナルサイズ画像の最大化と比率維持 */
+/* Maximizing original-size images while maintaining their aspect ratio */
 .modal-content img {
   display: block;
   max-width: 100%;
@@ -417,7 +427,7 @@ font-family: "Roboto";
   height: auto;
   object-fit: contain; 
 }
-/* ×（閉じる）」ボタン */
+/* -----close-btn------ */
 .modal-close-btn {
 	display: none;}
 /*	
