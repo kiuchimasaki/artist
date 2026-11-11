@@ -154,6 +154,11 @@ pointer-events: none;
   cursor: default;         
   pointer-events: none;    
 } 
+.text.active{
+  color:#1d1d1d;       
+   
+} 
+
 
 
 
@@ -238,7 +243,7 @@ pointer-events: none;
   font-size: 1.1rem;
   font-weight: 400; 
   line-height: 1.8;
-  color: ##1d1d1d;  
+  color: #1d1d1d;  
   letter-spacing: 0.02rem; 
 }
 #education {
