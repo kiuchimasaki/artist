@@ -21,15 +21,13 @@
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    background-color: rgba(210, 210, 210, 0.7) !important;
-    backdrop-filter: blur(15px);
+    background-color: rgba(255, 255, 255, 0.2) !important; /* 白ベースの透明 */
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     z-index: 999999 !important;
-    opacity: 0.9;
-    /* ↓ 消えるときの余韻を美しくするため 1.5秒（1.5s）に伸ばしました */
-    transition: opacity 3.5s ease; 
+    opacity: 1;
+    transition: opacity 1.5s ease; /* 消えるときの速度 */
   }
   .loader-overlay.loaded {
     opacity: 0 !important;
@@ -43,28 +41,34 @@
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
     border-top-color: #fff !important;
     border-radius: 50% !important;
-    animation: spin 1.7s linear infinite !important;
+    animation: spin 1s linear infinite !important;
   }
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
 
-  /* --- メインコンテンツ全体の枠（透けさせる設定） --- */
-  main.loading {
-    opacity: 0.3; /* 読み込み中は5%だけ極薄で見える状態 */
-  }
-  main {
-    opacity: 1;
-    transition: opacity 5s ease; /* メイン全体の表示も滑らかに */
+  /* --- 通常時のヘッダー（無地の白） --- */
+  header {
+    position: relative; 
+    z-index: 9999999 !important; /* 常にローディング画面より手前に出す */
+    background-color: #ffffff; 
+    transition: background-color 1.5s ease; 
   }
 
-  /* --- 写真1枚1枚がその場でふわっと現れるスタイル --- */
-  .fade-in-item {
-    opacity: 0;
-    will-change: opacity;
-    transition: opacity 5s ease; /* 1.5秒かけてじわっと浮かび上がらせる */
+  /* --- 読み込み中だけヘッダーの背景をローディングと同化させる --- */
+  body:not(.js-loaded) header {
+    background-color: rgba(255, 255, 255, 0.2) !important;
   }
-  .fade-in-item.show {
+
+  /* --- ★重要：画像一枚一枚の初期状態（最初は透明にする） --- */
+  .gallery-item img {
+    opacity: 0;
+    will-change: opacity; /* ブラウザのアニメーション準備期間を強制維持 */
+    transition: opacity 1.5s ease; /* 1枚1枚が1.5秒かけてじわっと出る */
+  }
+
+  /* 画像の読み込みが完了した瞬間に付与されるクラス */
+  .gallery-item img.img-loaded {
     opacity: 1;
   }
 </style>
@@ -353,71 +357,42 @@
   
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // 1. 画面に見えている写真の枠（.gallery-item）をすべて取得
-  const items = Array.from(document.querySelectorAll('.gallery-item'));
+  // 1. ギャラリー内のすべてのサムネイル画像を取得
+  const images = document.querySelectorAll('.gallery-item img');
   
-  // あらかじめすべてを透明にしておく
-  items.forEach(item => {
-    item.classList.add('fade-in-item');
+  // 各画像を個別に監視し、読み込みが終わったものからその場でふわっとさせる
+  images.forEach(img => {
+    // すでにキャッシュ等で読み込みが完了（あるいは一瞬で完了）している場合
+    if (img.complete) {
+      img.classList.add('img-loaded');
+    } else {
+      // これから画像がダウンロードされる場合、完了した瞬間にフェードイン
+      img.addEventListener('load', function() {
+        img.classList.add('img-loaded');
+      });
+    }
   });
 
-  // 配列をランダムにシャッフルする関数
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
-
-  let isAnimated = false; // 二重実行防止
-  
-  function startAnimate() {
-    if (isAnimated) return;
-    isAnimated = true;
-
-    // ① ローディング画面（暗い背景）を消し始める
+  // 2. 全体のローディング画面（スピナー）を消す共通関数
+  function removeOverlay() {
+    // ヘッダーを白に戻す
+    document.body.classList.add('js-loaded');
+    
+    // スピナーと白背景を消す
     const loader = document.getElementById('page-loader');
     if (loader && !loader.classList.contains('loaded')) {
       loader.classList.add('loaded');
     }
-
-    // メイン枠の loading クラスを外す
-    const mainContent = document.querySelector('main');
-    if (mainContent) {
-      mainContent.classList.remove('loading');
-    }
-
-    // ② ローディングが消えかけている途中（0.4秒後）に、写真の出現をスタート
-    setTimeout(() => {
-      // 写真の順番をバラバラにシャッフルする
-      const shuffledItems = shuffle(items);
-
-      // ★調整：何枚ずつ同時に出すか（ここでは「4枚」ずつ）
-      const batchSize = 4; 
-      // ★調整：次の束（グループ）を出すまでの時間差（ミリ秒）
-      const intervalTime = 100; 
-
-      shuffledItems.forEach((item, index) => {
-        // indexをbatchSizeで割ることで、4枚ごとに同じタイミングのグループを作ります
-        const groupIndex = Math.floor(index / batchSize);
-        
-        setTimeout(() => {
-          item.classList.add('show');
-        }, groupIndex * intervalTime); 
-      });
-    }, 400); 
   }
 
-  // 対策①：すべての画像が読み込まれたら開始
-  window.addEventListener('load', function() {
-    startAnimate();
-  });
-
-  // 対策②：万が一画像が重くても、2.5秒経ったら強制的に開始（保険）
-  setTimeout(startAnimate, 7000);
+  // ページ全体（全画像）の読み込みが完了したらスピナーをフェードアウト
+  window.addEventListener('load', removeOverlay);
+  
+  // 保険：万が一どれかの画像が重くても、2.5秒経ったら強制的にスピナーを消す
+  setTimeout(removeOverlay, 2500);
 });
 </script>
+
 
 
 
