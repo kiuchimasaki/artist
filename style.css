@@ -357,7 +357,7 @@ font-family: "Roboto";
   width: 100vw;
   height: 100vh;
   background-color: rgba(210, 210, 210, 0.88); 
-  z-index: 1000;
+  z-index: 99999999;
   display: flex;
   justify-content: center;
   align-items: center;
