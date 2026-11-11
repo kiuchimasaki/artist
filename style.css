@@ -302,6 +302,7 @@ font-family: "Roboto";
 }
 
 /* -------gallery-img------------------- */
+
 .gallery-img {
   width: 100% !important;
   aspect-ratio: 1 / 1 !important; 
@@ -365,6 +366,17 @@ font-family: "Roboto";
 .gallery-info {
   display: none !important;
 }
+ /* ----------------- gallery-item img  ----------- */
+.gallery-item img {
+    opacity: 0;
+    will-change: opacity;
+    transition: opacity 3s ease; 
+  }
+
+ .gallery-item img.img-loaded {
+    opacity: 1;
+  }
+
 
 /* ==========================================Responsive================== */
 @media (max-width: 1024px) {
