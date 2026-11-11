@@ -357,42 +357,47 @@
   
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // 1. ギャラリー内のすべてのサムネイル画像を取得
   const images = document.querySelectorAll('.gallery-item img');
   
-  // 各画像を個別に監視し、読み込みが終わったものからその場でふわっとさせる
+  // 1. 各画像の読み込み完了を監視（クラスの付与だけを行う）
   images.forEach(img => {
-    // すでにキャッシュ等で読み込みが完了（あるいは一瞬で完了）している場合
     if (img.complete) {
       img.classList.add('img-loaded');
     } else {
-      // これから画像がダウンロードされる場合、完了した瞬間にフェードイン
       img.addEventListener('load', function() {
         img.classList.add('img-loaded');
       });
     }
   });
 
-  // 2. 全体のローディング画面（スピナー）を消す共通関数
-  function removeOverlay() {
-    // ヘッダーを白に戻す
-    document.body.classList.add('js-loaded');
-    
-    // スピナーと白背景を消す
+  // 2. ローディング演出のコントロール
+  let isAnimated = false;
+
+  function startAnimate() {
+    if (isAnimated) return;
+    isAnimated = true;
+
+    // ① まずはローディング画面（スピナーと白背景）を消し始める
     const loader = document.getElementById('page-loader');
     if (loader && !loader.classList.contains('loaded')) {
       loader.classList.add('loaded');
     }
+
+    // ② ヘッダーを白に戻し始める
+    document.body.classList.add('js-loaded');
   }
 
-  // ページ全体（全画像）の読み込みが完了したらスピナーをフェードアウト
-  window.addEventListener('load', removeOverlay);
-  
-  // 保険：万が一どれかの画像が重くても、2.5秒経ったら強制的にスピナーを消す
-  setTimeout(removeOverlay, 2500);
+  // ★改善ポイント：
+  // 画像がどんなに一瞬で読み込まれても、最低「800ミリ秒（0.8秒）」はスピナーをしっかり回します。
+  // 800ミリ秒経ったあとにローディング画面が消え始め、同時に写真がじわっと浮かび上がります。
+  window.addEventListener('load', function() {
+    setTimeout(startAnimate, 1800); // ←ここの数字（ミリ秒）でスピナーの最低表示時間を調整できます
+  });
+
+  // 保険：万が一画像が重くても、2.5秒経ったら強制的に開始
+  setTimeout(startAnimate, 2500);
 });
 </script>
-
 
 
 
