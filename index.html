@@ -21,15 +21,15 @@
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    background-color:rgba(255, 255, 255, 0.85) !important; /* ★バックを完全な「無地の白」にする */
-    backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important; 
+    background-color:rgba(255, 255, 255, 0.6) !important; 
+    backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important; 
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     z-index: 999999 !important;
     opacity: 1;
-    transition: opacity 1.5s ease; /* 消えるときの速度 */
+    transition: opacity 4s ease; /* 消えるときの速度 */
   }
   
   /* 読み込み完了後に消える時のアニメーション */
@@ -47,7 +47,7 @@
       回転する先端部分だけを濃いグレー（黒の60%の濃さ）のモノクロにします
     */
     border: 1px solid rgba(0, 0, 0, 0.05) !important; 
-    border-top-color: rgba(0, 0, 0, 0.6) !important; 
+    border-top-color: rgba(0, 0, 0, 0.4) !important; 
     
     border-radius: 50% !important;
     animation: spin 1s linear infinite !important;
@@ -59,23 +59,20 @@
   /* --- ★新設：メインコンテンツ（画像一覧）の初期状態とボカシ効果 --- */
   main.loading {
     /* 
-      読み込み中は白背景（.loader-overlay）の後ろに完全に隠れますが、
-      ブラウザにあらかじめボカシ（20px）の準備をさせておきます
-    */
     filter: blur(2px); 
   }
   
   main {
     filter: blur(0px); /* 読み込み完了後にクッキリさせる */
     will-change: filter; /* アニメーションを滑らかにするためのブラウザへの通知 */
-    transition: filter 1.5s ease; /* 1.5秒かけてじわ〜っとボカシを消していく */
+    transition: filter 3s ease; /* 1.5秒かけてじわ〜っとボカシを消していく */
   }
 
   /* --- 画像一枚一枚の初期状態（最初は透明） --- */
   .gallery-item img {
     opacity: 0;
     will-change: opacity;
-    transition: opacity 1.5s ease; /* 1枚1枚が1.5秒かけてじわっと出る */
+    transition: opacity 3s ease; /* 1枚1枚が1.5秒かけてじわっと出る */
   }
 
   /* 画像の読み込みが完了した瞬間に付与されるクラス */
