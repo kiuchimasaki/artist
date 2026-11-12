@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KIUCHI Masaki/Artist</title>
-  
+　<meta name="description" content="Official portfolio of Masaki Kiuchi (KIUCHI Masaki).">
   <!-- Google Fonts -->
-  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&family=Noto+Sans+JP:wght@100;300;400;700&display=swap" rel="stylesheet">
@@ -14,7 +13,6 @@
 
 
 <style>
-  /* --- ローディング画面全体のスタイル --- */
   .loader-overlay {
     position: fixed !important;
     top: 0 !important;
@@ -31,14 +29,10 @@
     opacity: 1;
     transition: opacity 4s ease; /* 消えるときの速度 */
   }
-  
-  /* 読み込み完了後に消える時のアニメーション */
   .loader-overlay.loaded {
     opacity: 0 !important;
     pointer-events: none !important;
   }
-
-  /* --- モノクロ極細スピナーのスタイル --- */
   .spinner {
     width: 50px !important;
     height: 50px !important;
@@ -50,50 +44,32 @@
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
-
-  /* --- ★修正：メインコンテンツ（画像一覧）の初期状態とボカシ効果 --- */
   main.loading {
-    filter: blur(2px); /* 構文の崩れを修正しました */
+    filter: blur(2px); 
   }
-  
   main {
-    filter: blur(0px); /* 読み込み完了後にクッキリさせる */
-    will-change: filter; /* アニメーションを滑らかにするためのブラウザへの通知 */
-    /* ↓【変更】3s から 5s に伸ばし、よりゆっくりボカシが消えるようにしました */
+    filter: blur(0px); 
+    will-change: filter; 
     transition: filter 5s ease; 
   }
-
 </style>
-
-
-
-
 
   
 </head>
+
 <body>
-
-
-
-<!-- 追加：ローディング画面------------------------->
 <div id="page-loader" class="loader-overlay">
   <div class="spinner"></div>
 </div>
-
-
-  
 
   <header class="header">
     <div class="container">
       <h1 class="site-title active">
        <a href="index.html">KIUCHI Masaki&emsp;/ Artist</a></h1>
-
       
       <nav class="nav">
         <a href="index.html" class="active">Expedition</a>
        
-        
-  <!-- プルダウン付きメニュー "works" -->
         <div class="dropdown">
           <a href="#works" class="dropdown-trigger">
             <span class="text">Works</span>
@@ -124,13 +100,10 @@
       </nav>
     </div>
   </header>
-
-
-
   
  <main class="main container loading">
-    <!-- 主役の画像一覧セクション -->
-    <section id="expedition" class="section">
+   
+   　    <section id="expedition" class="section">
       <div class="gallery-grid">
 
 
@@ -220,9 +193,9 @@
 
 
 <!-- ========================================================
-     ポップアップ（モーダル）の本体データ（</body>の直前に設置）
+     popup
      ======================================================== -->
-<!------ Row 1 ポップアップ --> 
+<!------ Row 1 popup --> 
 <!-- photo1-popup --> <div id="popup-01" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-1.jpg" alt="expedition-1"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo2-popup --> <div id="popup-02" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-2.jpg" alt="expedition-2"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo3-popup --> <div id="popup-03" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-3.jpg" alt="expedition-3"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
@@ -232,7 +205,7 @@
 <!-- photo7-popup --> <div id="popup-07" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-7.jpg" alt="expedition-7"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo8-popup --> <div id="popup-08" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-8.jpg" alt="expedition-8"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 
-<!------ Row 2 ポップアップ --> 
+<!------ Row 2 popup--> 
 <!-- photo9-popup --> <div id="popup-09" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-9.jpg" alt="expedition-9"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo10-popup --> <div id="popup-10" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-10.jpg" alt="expedition-10"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo11-popup --> <div id="popup-11" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-11.jpg" alt="expedition-11"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
@@ -242,7 +215,7 @@
 <!-- photo15-popup --> <div id="popup-15" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-15.jpg" alt="expedition-15"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo16-popup --> <div id="popup-16" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-16.jpg" alt="expedition-16"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 
-<!------ Row 3 ポップアップ --> 
+<!------ Row 3 popup --> 
 <!-- photo17-popup --> <div id="popup-17" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-17.jpg" alt="expedition-17"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo18-popup --> <div id="popup-18" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-18.jpg" alt="expedition-18"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo19-popup --> <div id="popup-19" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-19.jpg" alt="expedition-19"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
@@ -252,7 +225,7 @@
 <!-- photo23-popup --> <div id="popup-23" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-23.jpg" alt="expedition-23"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo24-popup --> <div id="popup-24" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-24.jpg" alt="expedition-24"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 
-<!------ Row 4 ポップアップ --> 
+<!------ Row 4 popup --> 
 <!-- photo25-popup --> <div id="popup-25" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-25.jpg" alt="expedition-25"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo26-popup --> <div id="popup-26" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-26.jpg" alt="expedition-26"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo27-popup --> <div id="popup-27" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-27.jpg" alt="expedition-27"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
@@ -262,7 +235,7 @@
 <!-- photo31-popup --> <div id="popup-31" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-31.jpg" alt="expedition-31"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo32-popup --> <div id="popup-32" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-32.jpg" alt="expedition-32"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 
-<!------ Row 5 ポップアップ --> 
+<!------ Row 5 popup--> 
 <!-- photo33-popup --> <div id="popup-33" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-33.jpg" alt="expedition-33"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo34-popup --> <div id="popup-34" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-34.jpg" alt="expedition-34"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo35-popup --> <div id="popup-35" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-35.jpg" alt="expedition-35"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
@@ -272,7 +245,7 @@
 <!-- photo39-popup --> <div id="popup-39" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-39.jpg" alt="expedition-39"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo40-popup --> <div id="popup-40" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-40.jpg" alt="expedition-40"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 
-<!------ Row 6 ポップアップ --> 
+<!------ Row 6 popup --> 
 <!-- photo41-popup --> <div id="popup-41" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-41.jpg" alt="expedition-41"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo42-popup --> <div id="popup-42" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-42.jpg" alt="expedition-42"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo43-popup --> <div id="popup-43" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-43.jpg" alt="expedition-43"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
@@ -282,7 +255,7 @@
 <!-- photo47-popup --> <div id="popup-47" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-47.jpg" alt="expedition-47"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo48-popup --> <div id="popup-48" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-48.jpg" alt="expedition-48"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 
-<!------ Row 7 ポップアップ --> 
+<!------ Row 7 popup--> 
 <!-- photo49-popup --> <div id="popup-49" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-49.jpg" alt="expedition-49"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo50-popup --> <div id="popup-50" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-50.jpg" alt="expedition-50"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo51-popup --> <div id="popup-51" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-51.jpg" alt="expedition-51"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
@@ -292,7 +265,7 @@
 <!-- photo55-popup --> <div id="popup-55" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-55.jpg" alt="expedition-55"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo56-popup --> <div id="popup-56" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-56.jpg" alt="expedition-56"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 
-<!------ Row 8 ポップアップ --> 
+<!------ Row 8 popup--> 
 <!-- photo57-popup --> <div id="popup-57" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-57.jpg" alt="expedition-57"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo58-popup --> <div id="popup-58" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-58.jpg" alt="expedition-58"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo59-popup --> <div id="popup-59" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-59.jpg" alt="expedition-59"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
@@ -302,7 +275,7 @@
 <!-- photo63-popup --> <div id="popup-63" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-63.jpg" alt="expedition-63"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo64-popup --> <div id="popup-64" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-64.jpg" alt="expedition-64"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 
-<!------ Row 9 ポップアップ --> 
+<!------ Row 9 popup--> 
 <!-- photo65-popup --> <div id="popup-65" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-65.jpg" alt="expedition-65"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo66-popup --> <div id="popup-66" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-66.jpg" alt="expedition-66"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo67-popup --> <div id="popup-67" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-67.jpg" alt="expedition-67"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
@@ -312,7 +285,7 @@
 <!-- photo71-popup --> <div id="popup-71" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-71.jpg" alt="expedition-71"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo72-popup --> <div id="popup-72" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-72.jpg" alt="expedition-72"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 
-<!------ Row 10 ポップアップ --> 
+<!------ Row 10 popup --> 
 <!-- photo73-popup --> <div id="popup-73" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-73.jpg" alt="expedition-73"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo74-popup --> <div id="popup-74" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-74.jpg" alt="expedition-74"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
 <!-- photo75-popup --> <div id="popup-75" class="gallery-modal"><a href="#expedition" class="modal-close-bg"></a><div class="modal-content"><img src="./e_images/expedition-75.jpg" alt="expedition-75"><a href="#expedition" class="modal-close-btn">&times;</a></div></div> 
@@ -328,9 +301,8 @@
   </div>
 
  
- 
 <script>
-  // 1. クリックで閉じる処理（背景または×ボタン）
+  //      close        
   document.querySelectorAll('.modal-close-bg, .modal-close-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -338,38 +310,35 @@
     });
   });
 
-  // 2. キーボードの「Esc」キーで閉じる処理
+  //     「Esc」close 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && location.hash.startsWith('#popup-')) {
       location.hash = 'close';
     }
   });
 </script>
-
- 
   
 <script>
 (function() {
-  // アニメーションを一瞬で完全スキップする関数
   function skipLoading() {
     const loader = document.getElementById('page-loader');
     const mainContent = document.querySelector('main');
     const images = document.querySelectorAll('.gallery-item img');
 
     if (loader) {
-      loader.style.setProperty('display', 'none', 'important'); // スピナーをパッと消す
+      loader.style.setProperty('display', 'none', 'important'); 
       loader.classList.add('loaded');
     }
     if (mainContent) {
-      mainContent.classList.remove('loading'); // ボカシをパッと消す
+      mainContent.classList.remove('loading'); // 
       mainContent.style.filter = 'none';
     }
     images.forEach(img => {
-      img.classList.add('img-loaded'); // 画像をすべて100%表示
+      img.classList.add('img-loaded'); 
     });
   }
 
-  // 1. 【超重要】ブラウザの「戻る」ボタンでの読み込み（bfcache）を検知して強制スキップ
+  // Detect loading via the browser's "Back" button (bfcache) and force a skip.
   window.addEventListener('pageshow', function(event) {
     if (event.persisted) {
       skipLoading();
@@ -381,7 +350,7 @@
     const mainContent = document.querySelector('main');
     const loader = document.getElementById('page-loader');
 
-    // 2. 通常の画像読み込み監視 & キャッシュカウント
+    //  Standard image loading monitoring & cache count
     let loadedCount = 0;
     images.forEach(img => {
       if (img.complete) {
@@ -394,14 +363,14 @@
       }
     });
 
-    // 3. 【リンク移動での再訪問時】キャッシュが一定数以上（半分以上）あれば即スキップ
-    // 判定枚数を「40枚」に下げることで、リンク移動時も確実に検知させます
+    //  [When revisiting via a link] Skip immediately if the cache contains a sufficient number of items (more than half)
+    // Threshold: 40 items
     if (loadedCount >= 40) {
       skipLoading();
       return;
     }
 
-    // 4. 【初回アクセス時（キャッシュがない時）だけ】美しいローディングを実行
+    //   Execute loading only upon the initial visit (when there is no cache)
     if (mainContent) {
       mainContent.classList.add('loading');
     }
@@ -430,20 +399,6 @@
   });
 })();
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
