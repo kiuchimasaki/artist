@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KIUCHI Masaki/Artist</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&family=Noto+Sans+JP:wght@100;300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+  <header class="header">
+    <div class="container">
+      <h1 class="site-title">
+       <a href="index.html">KIUCHI Masaki&emsp;/ Artist</a></h1>
+
+      
+      <nav class="nav">
+        
+        <a href="index.html">Expedition</a>
+        
+ <!-- プルダウン付きメニュー "works" -->
+        <div class="dropdown">
+        <a href="#works" class="dropdown-trigger">
+          <span class="text active">works</span>
+          <span class="arrow"></span>
+       </a>
+       
+       <ul class="dropdown-menu">
+   <li>
+  <a href="alternature.html" class="dropdown-item" id="link-alternature">Alternature</a></li>
+
+ <!-- 現在地-->
+    <li>
+  <a class="jomon-bocci-02.html dropdown-item active" class="dropdown-item" id="link-jomon-bocci-02">Jomon Bocci 02</a></li>
+
+    <li>
+  <a href="Tangent.html" class="dropdown-item" id="link-tangent">Tangent</a></li>
+    <li>
+  <a class="jomon-bocci dropdown-item non" id="link-jomon-bocci">Jomon Bocci</a></li>      
+    <li>
+  <a href="kamisama-othello.html" class="dropdown-item" id="link-kamisama-othello">Kamisama Othello</a></li> 
+    <li>
+  <a href="view-from-mt-myojo.html" class="dropdown-item" id="view-from-mt-myojo">View from Mt.Myojo</a></li> 
+
+    <li>
+  <a href="tsukinowa.html" class="dropdown-item" id="link-tsukinowa">TSUKINOWA</a></li> 
+     </ul>
+   </div>
+       
+        <a href="about.html">About</a>
+
+      </nav>
+    </div>
+  </header>
+
+  <main class="main container">
+
+ <section id="jomon-bocci-02" class="section">
+    <div class="works-title">
+<h1 id="works-title">Jomon Bocci 02 Fujiyama Future</h1>
+<p id="works-date">2018</p>
+<p id="works-medium">Single-channel Full HD digital video, sound</p>
+</div>
+    
+    <section id="works-page" class="section">
+      <div class="worksgallery-grid">  
+      
+      
+      
+<article class="worksgallery-item">
+              <a href="#popup-JB02_1"> 
+     <div class="worksgallery-img"><img src="./w_images/JB02_statement.png" alt="JB02_statement"></div>
+   </a></article> 
+    
+<article class="worksgallery-item">
+              <a href="#popup-JB02_2"> 
+     <div class="worksgallery-img"><img src="./w_images/JB02_01.png" alt="JB02_01"></div>
+   </a></article> 
+     
+<article class="worksgallery-item">
+              <a href="#popup-JB02_3"> 
+     <div class="worksgallery-img"><img src="./w_images/JB02_02.png" alt="JB02_02"></div>
+   </a></article>  
+   
+    
+     </div>
+
+   <div class="vimeo-frame">  
+<iframe title="Jomon Bocci 02 Fujiyama Future" src="https://player.vimeo.com/video/613127889?h=a4f800e730&amp;dnt=1&amp;app_id=122963" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>    
+     </div>    
+     
+    </section> 
+  </main>
+
+   <div id="popup-JB02_1" class="gallery-modal">
+      <a href="#expedition" class="modal-close-bg"></a> <!-- 背景をクリックしたら閉じる -->
+          <div class="modal-content">
+          <img src="./w_images/JB02_statement.png" alt="view-from-mt-myojo01">
+      <a href="#expedition" class="modal-close-btn">&times;</a> <!-- 閉じるボタン（×） -->
+       </div></div>
+
+   <div id="popup-JB02_2" class="gallery-modal">
+      <a href="#expedition" class="modal-close-bg"></a> 
+          <div class="modal-content">
+          <img src="./w_images/JB02_01.png" alt="view-from-mt-myojo02">
+      <a href="#expedition" class="modal-close-btn">&times;</a> 
+        </div></div>
+
+   <div id="popup-JB02_3" class="gallery-modal">
+      <a href="#expedition" class="modal-close-bg"></a> 
+          <div class="modal-content">
+          <img src="./w_images/JB02_02.png" alt="view-from-mt-myojo02">
+      <a href="#expedition" class="modal-close-btn">&times;</a> 
+        </div></div>
+
+ </div>
+ 
+<script>
+  // 1. クリックで閉じる処理（背景または×ボタン）
+  document.querySelectorAll('.modal-close-bg, .modal-close-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      location.hash = 'close';
+    });
+  });
+
+  // 2. キーボードの「Esc」キーで閉じる処理
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && location.hash.startsWith('#popup-')) {
+      location.hash = 'close';
+    }
+  });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const images = document.querySelectorAll('main img');
+
+  images.forEach(img => {
+    if (img.complete) {
+      img.classList.add('img-loaded');
+    } else {
+      img.addEventListener('load', function() {
+        img.classList.add('img-loaded');
+      });
+    }
+  });
+});
+</script>
+
+
+ 
+  
+
+
+</body>
+</html>
